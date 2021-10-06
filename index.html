@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>GIF Search</title>
+  </head>
+  <body>
+    <h1>Search breweries by city</h1>
+    <input type="text" id="searchTerm"  />
+    <!--<div>
+      Rating:
+      <!-- Add a select menu with an id of 'rating' -->
+      <!--<select name="" id="rating">
+        <option value="G">G</option>
+        <option value="PG">PG</option>
+        <option value="R">R</option>
+      </select>
+    </div>-->
+    <button onclick="loadEventsByCity()">Search!</button>
+    <div class="container" style="display: flex; flex-wrap: wrap;">
+      <div id="response-container"></div>
+      <div id="event-container"></div>
+      <div id="yelp-container"></div>
+  </div>
+    
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
