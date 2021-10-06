@@ -84,36 +84,39 @@ var loadEventsByCity = function() {
 
           var yelpApiUrl = 'https://api.yelp.com/v3/businesses/search?location=' + theirSearch;
 
+
+      const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': `${yelpApi}`
+        });    
       fetch(yelpApiUrl, {
-          credentials: 'include',
-          headers: {
-            Authorization: `Bearer ${yelpApi}`
-          },
+          method: 'GET',
+          headers: myHeaders,
           })
           .then(function(response) {
             return response.json();
           })
           .then(function(response) {
             // Create a variable that will select the <div> where the GIF will be displayed
-            var univHeadline = document.createElement('h3');
-            univHeadline.textContent = 'Showing all events in ' + searchTerm.value;
+            var yelpHeadline = document.createElement('h3');
+            yelpHeadline.textContent = 'Showing all events in ' + searchTerm.value;
             
-            for(var i = 0; i < response._embedded.events.length; i++) {
-              var univContainer = document.querySelector("#event-container");
+            for(var i = 0; i < response.businesses.length; i++) {
+              var yelpContainer = document.querySelector("#event-container");
 
-              var univSearchReturnList = document.createElement('li');
-              var univSearchReturn = document.createElement('a');
-              univSearchReturn.setAttribute('href', response._embedded.events[i].url);
-              univSearchReturn.setAttribute('type', 'submit');
-              univSearchReturn.setAttribute('target', '_blank');
-              univSearchReturn.textContent = response._embedded.events[i].name + ' (' + response._embedded.events[i].dates.start.localDate + ')';
+              var yelpSearchReturnList = document.createElement('li');
+              var yelpSearchReturn = document.createElement('a');
+              yelpSearchReturn.setAttribute('href', response.businesses[i].url);
+              yelpSearchReturn.setAttribute('type', 'submit');
+              yelpSearchReturn.setAttribute('target', '_blank');
+              yelpSearchReturn.textContent = response.businesses[i].name + ' (Rating:' + response.businesses[i].rating + ')';
               
               // Append to the <div>
-              univContainer.append(univSearchReturnList);
-              univSearchReturnList.append(univSearchReturn);
+              univContainer.append(yelpSearchReturnList);
+              yelpSearchReturnList.append(yelpSearchReturn);
               searchTerm.value = '';
             };
-            univContainer.prepend(univHeadline);
+            yelpContainer.prepend(yelpHeadline);
           });
         
 };
