@@ -83,15 +83,16 @@ var loadEventsByCity = function() {
           });
 
           var yelpApiUrl = 'https://api.yelp.com/v3/businesses/search?location=' + theirSearch;
-  
-      fetch(yelpApiUrl, {
-          
-          headers: {
-            'Authorization': `Bearer ${yelpApi}`,
-          },
-          method: 'GET',
-          dataType: 'json',
+          let h = new Headers();
+          h.append('Accept', 'application/json');
+
+          let req = new Request(yelpApiUrl, {
+            method: 'GET',
+            headers: h,
+            mode: 'no-cors'
           })
+
+      fetch(req) 
           .then(function(response) {
             return response.json();
           })
